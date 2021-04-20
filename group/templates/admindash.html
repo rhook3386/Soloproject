@@ -1,0 +1,50 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <div id='wrap'>
+        <a id="menu" href="/logout">Logout</a>
+        <h1>Hi {{request.session.user}}!</h1>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <h2>Here are the organizations you may join:</h2>
+        <div id="org">
+            <div id='posts'>
+                {% for post in dashboard_org %}
+                <div class='one_post'>
+                    {%if post.poster.first_name in request.session.user%}
+                    <a  href="/delete/{{post.id}}">X</a> 
+                    {% endif %}
+                    <a href="/group/{{post.id}}">{{post.org_name}}</a>
+                
+                    <p class='member'>Members: {{ post.user_join.count }}</p>
+                    <p class='post'>{{post.org_desc}}</p>
+                </div>
+            {% endfor %}
+            </div>
+            <p>Share a Moment</p>
+            <div id='write'>
+                <form action="/process_group" method=POST>
+                    {% csrf_token %}
+                    <p>Org Name<input type="text" name='org'></p>
+                    <p>Description<input type="text" name='descript'></p>
+                    <input type="submit" value="CREATE!">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groups</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div id='wrap'>
+        <a href='/dashboard'>
+        <img src="https://payload.cargocollective.com/1/12/402732/13541367/Cumulus_Logo2_670.png" alt="Logo" style="width: 200px; height: 150;">
+        </a>
+        <a id="menu" href="/dashboard">Dashboard</a>
+        <a id="menu" href="/logout">Logout</a>
+        <div id='submenu' style="display: flex; justify-content: space-between;">
+            <div id='groupname' style="color: cornflowerblue;">
+                <h1 class='post'>{{one_group.org_name}}</h1>
+            </div>
+            <div id='joinorleave'>
+                {%if current_user in one_group.user_join.all %}
+                <a href="/leave/{{one_group.id}}">Leave Group</a>
+                {% else %}
+                <a  href="/join/{{one_group.id}}">Join Group</a> 
+                {% endif %}
+            </div>
+        </div>
+        <div style="display: flex; justify-content: center; padding-top: 10px;">
+        {%if one_group.media%}
+        <p class='post'>{{one_group.media.url}}</p>
+        <img class='momentimg' src="{{one_group.media.url}}">
+        {%endif%}
+        {%if one_group.videofile%}
+        <video width="320" height="240" controls>
+            <source src="{{one_group.videofile.url}}" type="video/mp4">
+            <source src="{{one_group.videofile.url}}" type="video/quicktime">
+        </video>
+        {%endif%}
+        </div>
+        <div>
+        <p class='post'style="display:flex; justify-content: center; "> {{one_group.org_desc}}</p>
+        <p class='poster'style="display:flex; justify-content: center; ">Moment Created by: {{one_group.poster.first_name}} {{one_group.poster.last_name}}</p>
+        <ul>Guests:
+        {% for user in one_group.user_join.all%}
+            <li style="padding: 20px;">{{user.first_name}} {{user.last_name}}</li>
+        {% endfor %}
+        </ul>
+        </div>
+    </div>
+</body>
+</html>

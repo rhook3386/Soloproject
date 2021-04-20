@@ -1,0 +1,87 @@
+* {
+    font-family: 'Hermit', monospace;
+}
+#log-reg {
+    display: flex;
+    justify-content:space-between;
+    margin: 15px;
+}
+#log-reg > section {
+    width:fit-content;
+    margin: 2 5px;
+}
+ul {
+    list-style: none;
+}
+li.error {
+    color: firebrick;
+}
+li.success {
+    color: forestgreen;
+}
+#reg {
+    padding: 30px;
+    border: 2px solid #363636;
+    align-content: center;
+}
+#log {
+    padding: 15px;
+    border: 2px solid #363636;
+    align-content: center;
+}
+button {
+    margin: 50px 0px 0px 200px;
+}
+#org {
+    display: flex;
+    justify-content:space-between;
+    
+}
+#write {
+    margin: 30px 100px 800px 30px;
+    padding: 15px;
+    border: 2px solid #363636;
+    align-content: center;
+}
+#posts {
+    padding: 15px;
+    text-justify: inter-cluster;
+}
+.post {
+    text-indent: 20px;
+}
+.poster {
+    text-indent: 30px;
+}
+.member {
+    text-indent: 20px;
+}
+#menu {
+    display: flex;
+    float: right;
+    padding: 5px 15px;
+}
+#joinorleave {
+    margin: 25px;
+    width: fit-content;
+    padding: 5px;
+    border: 2px solid #363636;
+    text-align: center;
+}
+#submenu {
+    display: inline-flex;
+}
+#logo {
+    width: 50px;
+}
+#Welcome {
+    text-align: center;
+}
+#reglogin {
+    float: right;
+    padding: 5px 15px;
+}
+#reglogin2 {
+    display: flex;
+    font-style: normal;
+}

@@ -1,0 +1,55 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <div id='wrap'>
+        <div style="display: flex; justify-content: space-between;">
+        <img src="https://payload.cargocollective.com/1/12/402732/13541367/Cumulus_Logo2_670.png" alt="Logo" style="width: 200px; height: 150;">
+        <h1 style="color: cornflowerblue; padding-left: 50px; text-align: center; font-size: 72px; padding-top: 50px; padding-right: 250px;">Hi {{request.session.user}}!</h1>
+        <a id="menu" href="/logout">Logout</a>
+        </div>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <h2>Welcome to Your Moments:</h2>
+        <div id="org">
+            <div id='posts'>
+                {% for post in dashboard_org %}
+                <div class='one_post'>
+                    {%if post.poster.first_name in request.session.user%}
+                    <a  href="/delete/{{post.id}}">X</a> 
+                    {% endif %}
+                    <a href="/group/{{post.id}}">{{post.org_name}}</a>
+                
+                    <p class='member'>Guests: {{ post.user_join.count }}</p>
+                    <p class='post'>{{post.org_desc}}</p>
+                </div>
+            {% endfor %}
+            </div>
+            <div id='write' style="height: 220px;">
+                <p>Share a Moment:</p>
+                <form action="/process_group" method=POST enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <p>Moment Name<input type="text" name='org'></p>
+                    <p>Description<input type="text" name='descript'></p>
+                    <p>Image<input type="file" name='media'></p>
+                    <p>Video<input type="file" name='video'></p>
+                    <input type="submit" value="CREATE!">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
